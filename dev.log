@@ -1,0 +1,56 @@
+
+> nextjs-new@0.1.0 dev
+> next dev --turbopack
+
+ ⚠ Found lockfile missing swc dependencies, run next locally to automatically patch
+   ▲ Next.js 15.5.9 (Turbopack)
+   - Local:        http://localhost:3000
+   - Network:      http://172.20.0.7:3000
+   - Environments: .env.local
+
+ ✓ Starting...
+ ⚠ Found lockfile missing swc dependencies, run next locally to automatically patch
+ ✓ Ready in 823ms
+ ○ Compiling / ...
+ ✓ Compiled / in 3.3s
+ ⨯ TypeError: Cannot read properties of undefined (reading 'map')
+    at Activites (.:32:34) {
+  digest: '409649757'
+}
+ GET / 500 in 3714ms
+ ⨯ TypeError: Cannot read properties of undefined (reading 'map')
+    at Activites (.:32:34) {
+  digest: '409649757'
+}
+ GET / 500 in 116ms
+ ⨯ TypeError: Cannot read properties of undefined (reading 'map')
+    at Soutenir (.:27:20) {
+  digest: '3619955489'
+}
+ GET / 500 in 221ms
+ ⨯ TypeError: Cannot read properties of undefined (reading 'map')
+    at Soutenir (.:27:20) {
+  digest: '3619955489'
+}
+ GET / 500 in 99ms
+ ⨯ TypeError: Cannot read properties of undefined (reading 'map')
+    at Soutenir (.:27:20) {
+  digest: '3619955489'
+}
+ GET / 500 in 116ms
+ ⨯ TypeError: Cannot read properties of undefined (reading 'map')
+    at <unknown> (.:55:31)
+    at Array.map (<anonymous>)
+    at Contact (.:50:15) {
+  digest: '3347195820'
+}
+ GET / 500 in 253ms
+ ⨯ TypeError: Cannot read properties of undefined (reading 'map')
+    at <unknown> (.:55:31)
+    at Array.map (<anonymous>)
+    at Contact (.:50:15) {
+  digest: '3347195820'
+}
+ GET / 500 in 123ms
+ GET / 200 in 274ms
+ GET / 200 in 107ms

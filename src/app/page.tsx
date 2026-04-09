@@ -1,0 +1,30 @@
+import Navbar from "@/components/Navbar";
+import Hero from "@/components/Hero";
+import Services from "@/components/Services";
+import Activites from "@/components/Activites";
+import Apropos from "@/components/Apropos";
+import Soutenir from "@/components/Soutenir";
+import Temoignages from "@/components/Temoignages";
+import Contact from "@/components/Contact";
+import Rejoindre from "@/components/Rejoindre";
+import Partenaires from "@/components/Partenaires";
+import Footer from "@/components/Footer";
+
+export default function Home() {
+  return (
+    <>
+      <Navbar />
+      <main className="pt-16">
+        <Hero />
+        <Services />
+        <Activites />
+        <Apropos />
+        <Soutenir />
+        <Temoignages />
+        <Partenaires />
+        <Contact />
+      </main>
+      <Footer />
+    </>
+  );
+}
