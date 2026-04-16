@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import FlagsBanner from "@/components/FlagsBanner";
 import Services from "@/components/Services";
 import Activites from "@/components/Activites";
 import Apropos from "@/components/Apropos";
@@ -16,6 +17,7 @@ export default function Home() {
       <Navbar />
       <main className="pt-16">
         <Hero />
+        <FlagsBanner />
         <Services />
         <Activites />
         <Apropos />
