@@ -1,12 +1,19 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const { lang, setLang, t } = useLanguage();
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const navLinks = [
     { label: t.nav.home, href: "#accueil" },
@@ -19,20 +26,20 @@ export default function Navbar() {
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-md">
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-white shadow-md" : "bg-transparent"}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-24">
           <Link href="#accueil" className="flex items-center gap-3" onClick={() => setMenuOpen(false)}>
             <Image src="/logo-ccma.png" alt="CCMA" width={280} height={140} className="h-20 w-auto object-contain" priority />
             <div className="hidden sm:flex flex-col leading-tight">
-              <span className="text-[#C8102E] font-bold text-sm uppercase tracking-wide">Centre Communautaire Multiculturel</span>
-              <span className="text-[#1a1a2e] font-bold text-sm uppercase tracking-wide">d'Auteuil Vimont Laval</span>
+              <span className={`font-bold text-sm uppercase tracking-wide transition-colors duration-300 ${scrolled ? "text-[#C8102E]" : "text-white"}`}>Centre Communautaire Multiculturel</span>
+              <span className={`font-bold text-sm uppercase tracking-wide transition-colors duration-300 ${scrolled ? "text-[#1a1a2e]" : "text-white/80"}`}>d'Auteuil Vimont Laval</span>
             </div>
           </Link>
 
           <nav className="hidden md:flex items-center gap-6">
             {navLinks.map((link) => (
-              <a key={link.href} href={link.href} className="text-sm font-medium text-gray-700 hover:text-[#C8102E] transition-colors duration-200">
+              <a key={link.href} href={link.href} className={`text-sm font-medium transition-colors duration-200 hover:text-[#C8102E] ${scrolled ? "text-gray-700" : "text-white/90"}`}>
                 {link.label}
               </a>
             ))}
@@ -40,20 +47,20 @@ export default function Navbar() {
               {t.nav.join}
             </a>
             <button onClick={() => setLang(lang === "fr" ? "en" : "fr")}
-              className="ml-1 px-3 py-1.5 rounded-full border-2 border-[#1a1a2e] text-[#1a1a2e] text-xs font-bold hover:bg-[#1a1a2e] hover:text-white transition-colors duration-200">
+              className={`ml-1 px-3 py-1.5 rounded-full border-2 text-xs font-bold transition-colors duration-200 ${scrolled ? "border-[#1a1a2e] text-[#1a1a2e] hover:bg-[#1a1a2e] hover:text-white" : "border-white text-white hover:bg-white hover:text-[#1a1a2e]"}`}>
               {lang === "fr" ? "EN" : "FR"}
             </button>
           </nav>
 
           <div className="md:hidden flex items-center gap-2">
             <button onClick={() => setLang(lang === "fr" ? "en" : "fr")}
-              className="px-2.5 py-1 rounded-full border-2 border-[#1a1a2e] text-[#1a1a2e] text-xs font-bold hover:bg-[#1a1a2e] hover:text-white transition-colors">
+              className={`px-2.5 py-1 rounded-full border-2 text-xs font-bold transition-colors duration-200 ${scrolled ? "border-[#1a1a2e] text-[#1a1a2e] hover:bg-[#1a1a2e] hover:text-white" : "border-white text-white hover:bg-white hover:text-[#1a1a2e]"}`}>
               {lang === "fr" ? "EN" : "FR"}
             </button>
             <button className="flex flex-col gap-1.5 p-2" onClick={() => setMenuOpen(!menuOpen)} aria-label="Menu">
-              <span className={`block w-6 h-0.5 bg-gray-700 transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-2" : ""}`} />
-              <span className={`block w-6 h-0.5 bg-gray-700 transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`} />
-              <span className={`block w-6 h-0.5 bg-gray-700 transition-all duration-300 ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`} />
+              <span className={`block w-6 h-0.5 transition-all duration-300 ${scrolled ? "bg-gray-700" : "bg-white"} ${menuOpen ? "rotate-45 translate-y-2" : ""}`} />
+              <span className={`block w-6 h-0.5 transition-all duration-300 ${scrolled ? "bg-gray-700" : "bg-white"} ${menuOpen ? "opacity-0" : ""}`} />
+              <span className={`block w-6 h-0.5 transition-all duration-300 ${scrolled ? "bg-gray-700" : "bg-white"} ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`} />
             </button>
           </div>
         </div>
