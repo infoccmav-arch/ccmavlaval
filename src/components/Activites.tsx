@@ -8,37 +8,53 @@ const MONTHS_FR_SHORT = ["jan","fév","mar","avr","mai","juin","juil","août","s
 const MONTHS_EN_SHORT = ["jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"];
 const DAYS_FR = ["Lun","Mar","Mer","Jeu","Ven","Sam","Dim"];
 const DAYS_EN = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+const EVENT_YEAR = 2026;
+
+// Resolve month name (full or short, FR or EN) to 0-indexed month number
+function resolveMonthIdx(monthName: string): number {
+  const m = monthName.toLowerCase().substring(0, 3);
+  let idx = MONTHS_FR_SHORT.findIndex(s => s.startsWith(m) || m.startsWith(s.substring(0, 3)));
+  if (idx === -1) idx = MONTHS_FR.findIndex(s => s.toLowerCase().startsWith(m));
+  if (idx === -1) idx = MONTHS_EN_SHORT.findIndex(s => s.startsWith(m) || m.startsWith(s.substring(0, 3)));
+  if (idx === -1) idx = MONTHS_EN.findIndex(s => s.toLowerCase().startsWith(m));
+  return idx;
+}
+
+// Returns true if the event date is today or in the future
+function isUpcoming(ev: { date: { day: string; month: string } }): boolean {
+  const monthIdx = resolveMonthIdx(ev.date.month);
+  if (monthIdx === -1) return false;
+  const evDate = new Date(EVENT_YEAR, monthIdx, parseInt(ev.date.day));
+  const todayStart = new Date();
+  todayStart.setHours(0, 0, 0, 0);
+  return evDate >= todayStart;
+}
 
 export default function Activites() {
   const { t, lang } = useLanguage();
+  const today = new Date();
 
-  // Calendar state — start at May 2026
-  const [calYear, setCalYear] = useState(2026);
-  const [calMonth, setCalMonth] = useState(4); // 0-indexed, 4 = May
-  const [selectedDay, setSelectedDay] = useState<number | null>(9);
+  // Only show upcoming events
+  const upcomingEvents = t.activities.events.filter(isUpcoming);
+
+  // Initial calendar: jump to first upcoming event's month, or current month
+  const firstEvent = upcomingEvents[0];
+  const initMonth = firstEvent ? resolveMonthIdx(firstEvent.date.month) : today.getMonth();
+  const initYear  = firstEvent ? EVENT_YEAR : today.getFullYear();
+
+  const [calYear, setCalYear] = useState(initYear);
+  const [calMonth, setCalMonth] = useState(initMonth);
+  const [selectedDay, setSelectedDay] = useState<number | null>(
+    firstEvent && resolveMonthIdx(firstEvent.date.month) === initMonth ? parseInt(firstEvent.date.day) : null
+  );
 
   const months = lang === "fr" ? MONTHS_FR : MONTHS_EN;
   const days   = lang === "fr" ? DAYS_FR   : DAYS_EN;
 
-  // Build a lookup: "YYYY-MM-DD" -> event
-  const eventMap: Record<string, typeof t.activities.events[0]> = {};
-  t.activities.events.forEach((ev) => {
-    const monthNum = lang === "fr"
-      ? MONTHS_FR.indexOf(ev.date.month) + 1 || parseInt(ev.date.month)
-      : MONTHS_EN.indexOf(ev.date.month) + 1 || parseInt(ev.date.month);
-    // Try both month name and number
-    const key = `${calYear}-${String(monthNum).padStart(2,"0")}-${ev.date.day}`;
-    eventMap[key] = ev;
-  });
-
-  // Also index events by day+month for current view
+  // Index upcoming events by day for the current calendar month
   const eventsThisMonth: Record<number, typeof t.activities.events[0]> = {};
-  t.activities.events.forEach((ev) => {
-    const evMonthName = ev.date.month.toLowerCase().substring(0, 3);
-    const shortList = lang === "fr" ? MONTHS_FR_SHORT : MONTHS_EN_SHORT;
-    const fullList  = lang === "fr" ? MONTHS_FR : MONTHS_EN;
-    let evMonthIdx = shortList.findIndex(m => m.startsWith(evMonthName) || evMonthName.startsWith(m.substring(0,3)));
-    if (evMonthIdx === -1) evMonthIdx = fullList.findIndex(m => m.toLowerCase().startsWith(evMonthName));
+  upcomingEvents.forEach((ev) => {
+    const evMonthIdx = resolveMonthIdx(ev.date.month);
     if (evMonthIdx === calMonth) {
       eventsThisMonth[parseInt(ev.date.day)] = ev;
     }
@@ -69,8 +85,6 @@ export default function Activites() {
   ];
   // Pad to full rows
   while (cells.length % 7 !== 0) cells.push(null);
-
-  const today = new Date();
 
   return (
     <section id="activites" className="py-20 bg-white">
@@ -210,21 +224,21 @@ export default function Activites() {
                 </div>
               )}
 
-              {/* All events list */}
-              {t.activities.events.length > 0 && (
+              {/* Upcoming events list */}
+              {upcomingEvents.length > 0 && (
                 <div className="bg-white border border-gray-100 rounded-3xl shadow-sm p-5">
                   <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">
-                    {lang === "fr" ? "Tous les événements" : "All events"}
+                    {lang === "fr" ? "Prochains événements" : "Upcoming events"}
                   </p>
-                  <div className="space-y-3">
-                    {t.activities.events.map((ev) => (
+                  <div className="space-y-3 max-h-64 overflow-y-auto pr-1">
+                    {upcomingEvents.map((ev) => (
                       <div key={ev.title} className="flex items-center gap-3">
                         <div className="w-9 h-9 rounded-xl flex-shrink-0 flex flex-col items-center justify-center text-white text-xs font-extrabold" style={{ background: ev.typeColor }}>
                           <span>{ev.date.day}</span>
                         </div>
                         <div className="min-w-0">
                           <p className="text-sm font-bold text-[#1a1a2e] truncate">{ev.title}</p>
-                          <p className="text-xs text-gray-400">{ev.time}</p>
+                          <p className="text-xs text-gray-400">{ev.date.month} · {ev.time}</p>
                         </div>
                       </div>
                     ))}
