@@ -83,7 +83,7 @@ export default function Services() {
             { num: "6", label: lang === "fr" ? "Services offerts" : "Services offered", icon: "🎯" },
             { num: "30+", label: lang === "fr" ? "Nationalités" : "Nationalities", icon: "🌍" },
             { num: "50+", label: lang === "fr" ? "Bénévoles" : "Volunteers", icon: "🤝" },
-            { num: "100%", label: lang === "fr" ? "Gratuit & inclusif" : "Free & inclusive", icon: "❤️" },
+            { num: "100%", label: lang === "fr" ? "Engagement communautaire" : "Community commitment", icon: "❤️" },
           ].map((stat) => (
             <div key={stat.label} className="text-center">
               <div className="text-2xl mb-1">{stat.icon}</div>
