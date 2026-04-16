@@ -44,10 +44,7 @@ const translations = {
         { photo: "https://loremflickr.com/500/300/french,language?lock=4", icon: "🇫🇷", tag: "Éducation", color: "#003087", title: "Cours de français", desc: "Cours gratuits pour adultes, tous niveaux." },
       ],
       events: [
-        { date: { day: "15", month: "Avr" }, type: "Sport", typeColor: "#006B3C", title: "Tournoi de soccer — Printemps 2026", location: "Parc Auteuil, Laval", time: "10h00 – 17h00" },
-        { date: { day: "22", month: "Avr" }, type: "Culture", typeColor: "#F4A300", title: "Soirée cuisine du monde", location: "Centre CCMAV", time: "18h00 – 21h00" },
-        { date: { day: "03", month: "Mai" }, type: "Éducation", typeColor: "#003087", title: "Atelier CV et recherche d'emploi", location: "Centre CCMAV", time: "14h00 – 16h00" },
-        { date: { day: "10", month: "Mai" }, type: "Art", typeColor: "#C8102E", title: "Spectacle multiculturel de printemps", location: "Salle communautaire, Laval", time: "19h00 – 22h00" },
+        { date: { day: "09", month: "Mai" }, type: "Communauté", typeColor: "#C8102E", title: "Portes ouvertes — CCMAV", location: "Centre CCMAV", time: "18h30 – 21h30" },
       ],
     },
     about: {
@@ -188,10 +185,7 @@ const translations = {
         { photo: "https://loremflickr.com/500/300/french,language?lock=4", icon: "🇫🇷", tag: "Education", color: "#003087", title: "French classes", desc: "Free classes for adults, all levels." },
       ],
       events: [
-        { date: { day: "15", month: "Apr" }, type: "Sport", typeColor: "#006B3C", title: "Soccer Tournament — Spring 2026", location: "Parc Auteuil, Laval", time: "10am – 5pm" },
-        { date: { day: "22", month: "Apr" }, type: "Culture", typeColor: "#F4A300", title: "World cuisine evening", location: "CCMAV Centre", time: "6pm – 9pm" },
-        { date: { day: "03", month: "May" }, type: "Education", typeColor: "#003087", title: "Resume & job search workshop", location: "CCMAV Centre", time: "2pm – 4pm" },
-        { date: { day: "10", month: "May" }, type: "Art", typeColor: "#C8102E", title: "Multicultural spring show", location: "Community Hall, Laval", time: "7pm – 10pm" },
+        { date: { day: "09", month: "May" }, type: "Community", typeColor: "#C8102E", title: "Open House — CCMAV", location: "CCMAV Centre", time: "6:30pm – 9:30pm" },
       ],
     },
     about: {
