@@ -29,6 +29,7 @@ const translations = {
         { icon: "👨‍👩‍👧", color: "#C8102E", title: "Soutien aux familles", description: "Ressources et ateliers pour les familles nouvellement arrivées, guidance parentale et soutien scolaire." },
         { icon: "💼", color: "#7C3AED", title: "Aide à l'emploi", description: "Accompagnement dans la recherche d'emploi, rédaction de CV et préparation aux entrevues." },
         { icon: "🌍", color: "#0891B2", title: "Échanges culturels", description: "Événements et activités pour célébrer la diversité culturelle et tisser des liens entre communautés." },
+        { icon: "🎶", color: "#E11D78", title: "Danse, musique & festivals", description: "Soirées et festivals multiculturels pour célébrer les arts, la musique et les traditions du monde entier." },
       ],
     },
     activities: {
@@ -170,6 +171,7 @@ const translations = {
         { icon: "👨‍👩‍👧", color: "#C8102E", title: "Family support", description: "Resources and workshops for newly arrived families, parental guidance and academic support." },
         { icon: "💼", color: "#7C3AED", title: "Employment help", description: "Support for job searching, resume writing and interview preparation." },
         { icon: "🌍", color: "#0891B2", title: "Cultural exchanges", description: "Events and activities to celebrate cultural diversity and build bridges between communities." },
+        { icon: "🎶", color: "#E11D78", title: "Dance, music & festivals", description: "Multicultural evenings and festivals celebrating arts, music and traditions from around the world." },
       ],
     },
     activities: {
