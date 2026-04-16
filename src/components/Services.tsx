@@ -80,7 +80,7 @@ export default function Services() {
         {/* Stats bar */}
         <div className="mt-16 grid grid-cols-2 sm:grid-cols-4 gap-6 bg-[#1a1a2e] rounded-2xl px-8 py-8">
           {[
-            { num: "6", label: lang === "fr" ? "Services offerts" : "Services offered", icon: "🎯" },
+            { num: "7", label: lang === "fr" ? "Services offerts" : "Services offered", icon: "🎯" },
             { num: "30+", label: lang === "fr" ? "Nationalités" : "Nationalities", icon: "🌍" },
             { num: "50+", label: lang === "fr" ? "Bénévoles" : "Volunteers", icon: "🤝" },
             { num: "100%", label: lang === "fr" ? "Engagement communautaire" : "Community commitment", icon: "❤️" },
