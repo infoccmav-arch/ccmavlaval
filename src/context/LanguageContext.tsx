@@ -7,7 +7,7 @@ const translations = {
   fr: {
     nav: {
       home: "Accueil", services: "Services", activities: "Activités",
-      about: "À propos", support: "Soutenir", contact: "Contact",
+      about: "À propos", support: "Soutenir", contact: "Contact", partners: "Partenaires", join: "Nous rejoindre",
     },
     hero: {
       badge: "Centre communautaire multiculturel — Laval",
@@ -151,7 +151,7 @@ const translations = {
   en: {
     nav: {
       home: "Home", services: "Services", activities: "Activities",
-      about: "About", support: "Support", contact: "Contact",
+      about: "About", support: "Support", contact: "Contact", partners: "Partners", join: "Join us",
     },
     hero: {
       badge: "Multicultural community centre — Laval",
