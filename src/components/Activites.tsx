@@ -1,56 +1,234 @@
 "use client";
+import { useState } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 
+const MONTHS_FR = ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"];
+const MONTHS_EN = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+const DAYS_FR = ["Lun","Mar","Mer","Jeu","Ven","Sam","Dim"];
+const DAYS_EN = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+
 export default function Activites() {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
+
+  // Calendar state — start at May 2026
+  const [calYear, setCalYear] = useState(2026);
+  const [calMonth, setCalMonth] = useState(4); // 0-indexed, 4 = May
+  const [selectedDay, setSelectedDay] = useState<number | null>(9);
+
+  const months = lang === "fr" ? MONTHS_FR : MONTHS_EN;
+  const days   = lang === "fr" ? DAYS_FR   : DAYS_EN;
+
+  // Build a lookup: "YYYY-MM-DD" -> event
+  const eventMap: Record<string, typeof t.activities.events[0]> = {};
+  t.activities.events.forEach((ev) => {
+    const monthNum = lang === "fr"
+      ? MONTHS_FR.indexOf(ev.date.month) + 1 || parseInt(ev.date.month)
+      : MONTHS_EN.indexOf(ev.date.month) + 1 || parseInt(ev.date.month);
+    // Try both month name and number
+    const key = `${calYear}-${String(monthNum).padStart(2,"0")}-${ev.date.day}`;
+    eventMap[key] = ev;
+  });
+
+  // Also index events by day+month for current view
+  const eventsThisMonth: Record<number, typeof t.activities.events[0]> = {};
+  t.activities.events.forEach((ev) => {
+    const evMonthName = ev.date.month;
+    const evMonthIdx = lang === "fr"
+      ? MONTHS_FR.findIndex(m => m.toLowerCase().startsWith(evMonthName.toLowerCase().substring(0,3)))
+      : MONTHS_EN.findIndex(m => m.toLowerCase().startsWith(evMonthName.toLowerCase().substring(0,3)));
+    if (evMonthIdx === calMonth) {
+      eventsThisMonth[parseInt(ev.date.day)] = ev;
+    }
+  });
+
+  // Get first day of month (0=Sun..6=Sat) → convert to Mon-first (0=Mon..6=Sun)
+  const firstDow = new Date(calYear, calMonth, 1).getDay();
+  const firstDowMon = (firstDow + 6) % 7; // shift so Mon=0
+  const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+
+  const prevMonth = () => {
+    if (calMonth === 0) { setCalMonth(11); setCalYear(y => y - 1); }
+    else setCalMonth(m => m - 1);
+    setSelectedDay(null);
+  };
+  const nextMonth = () => {
+    if (calMonth === 11) { setCalMonth(0); setCalYear(y => y + 1); }
+    else setCalMonth(m => m + 1);
+    setSelectedDay(null);
+  };
+
+  const selectedEvent = selectedDay ? eventsThisMonth[selectedDay] : null;
+
+  // Build grid cells
+  const cells: (number | null)[] = [
+    ...Array(firstDowMon).fill(null),
+    ...Array.from({ length: daysInMonth }, (_, i) => i + 1),
+  ];
+  // Pad to full rows
+  while (cells.length % 7 !== 0) cells.push(null);
+
+  const today = new Date();
+
   return (
     <section id="activites" className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        {/* Header */}
         <div className="text-center mb-14">
-          <span className="inline-block bg-[#006B3C]/10 text-[#006B3C] text-sm font-semibold px-4 py-1.5 rounded-full mb-4 uppercase tracking-wide">{t.activities.badge}</span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#1a1a2e] mb-4">{t.activities.title}</h2>
-          <p className="text-gray-600 max-w-2xl mx-auto text-base leading-relaxed">{t.activities.subtitle}</p>
+          <span className="inline-flex items-center gap-2 bg-[#006B3C]/10 text-[#006B3C] text-xs font-bold px-4 py-2 rounded-full mb-5 uppercase tracking-widest">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#006B3C] inline-block" />
+            {t.activities.badge}
+          </span>
+          <h2 className="text-4xl sm:text-5xl font-extrabold text-[#1a1a2e] mb-5">{t.activities.title}</h2>
+          <p className="text-gray-500 max-w-xl mx-auto text-base leading-relaxed">{t.activities.subtitle}</p>
         </div>
+
+        {/* Activity cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-16">
           {t.activities.items.map((a) => (
-            <div key={a.title} className="rounded-2xl border border-gray-100 hover:shadow-md transition-all duration-200 hover:-translate-y-1 bg-gray-50 overflow-hidden">
-              <img src={a.photo} alt={a.title} className="w-full h-40 object-cover" />
+            <div key={a.title} className="rounded-2xl border border-gray-100 hover:shadow-md transition-all duration-200 hover:-translate-y-1 bg-gray-50 overflow-hidden group">
+              <div className="relative overflow-hidden h-40">
+                <img src={a.photo} alt={a.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+                <span className="absolute bottom-3 left-3 text-xs font-bold px-2.5 py-1 rounded-full text-white" style={{ background: a.color }}>{a.tag}</span>
+              </div>
               <div className="p-5">
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center text-xl mb-3" style={{ background: `${a.color}18` }}>{a.icon}</div>
-                <span className="text-xs font-semibold px-2.5 py-1 rounded-full" style={{ background: `${a.color}15`, color: a.color }}>{a.tag}</span>
-                <h3 className="font-bold text-[#1a1a2e] mt-3 mb-1 text-base">{a.title}</h3>
+                <h3 className="font-bold text-[#1a1a2e] mb-1 text-base">{a.title}</h3>
                 <p className="text-gray-500 text-sm">{a.desc}</p>
               </div>
             </div>
           ))}
         </div>
+
+        {/* Calendar section */}
         <div id="evenements">
-          <h3 className="text-2xl font-bold text-[#1a1a2e] mb-7 flex items-center gap-2">
-            <span className="inline-block w-1 h-6 bg-[#C8102E] rounded-full mr-1" />{t.activities.upcomingTitle}
+          <h3 className="text-2xl font-bold text-[#1a1a2e] mb-8 flex items-center gap-2">
+            <span className="inline-block w-1 h-6 bg-[#C8102E] rounded-full" />
+            {t.activities.upcomingTitle}
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {t.activities.events.map((ev) => (
-              <div key={ev.title} className="flex items-start gap-4 bg-white border border-gray-100 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all duration-200 hover:-translate-y-0.5">
-                <div className="flex-shrink-0 w-14 h-14 rounded-xl bg-[#1a1a2e] text-white flex flex-col items-center justify-center">
-                  <span className="font-extrabold text-lg leading-none">{ev.date.day}</span>
-                  <span className="text-xs text-gray-300">{ev.date.month}</span>
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="text-xs font-semibold px-2 py-0.5 rounded-full" style={{ background: `${ev.typeColor}15`, color: ev.typeColor }}>{ev.type}</span>
-                  </div>
-                  <h4 className="font-bold text-[#1a1a2e] text-sm leading-snug mb-1">{ev.title}</h4>
-                  <p className="text-gray-400 text-xs">{ev.location}</p>
-                  <p className="text-gray-400 text-xs mt-0.5">🕐 {ev.time}</p>
-                </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+
+            {/* Calendar */}
+            <div className="lg:col-span-3 bg-white border border-gray-100 rounded-3xl shadow-sm p-6">
+              {/* Month nav */}
+              <div className="flex items-center justify-between mb-6">
+                <button onClick={prevMonth} className="w-9 h-9 rounded-xl border border-gray-200 hover:border-[#C8102E] hover:text-[#C8102E] flex items-center justify-center transition-colors">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+                </button>
+                <h4 className="font-extrabold text-[#1a1a2e] text-lg">
+                  {months[calMonth]} <span className="text-[#C8102E]">{calYear}</span>
+                </h4>
+                <button onClick={nextMonth} className="w-9 h-9 rounded-xl border border-gray-200 hover:border-[#C8102E] hover:text-[#C8102E] flex items-center justify-center transition-colors">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                </button>
               </div>
-            ))}
-          </div>
-          <div className="text-center mt-10">
-            <a href="#contact" className="inline-flex items-center gap-2 px-7 py-3 rounded-full border-2 border-[#1a1a2e] text-[#1a1a2e] font-semibold text-sm hover:bg-[#1a1a2e] hover:text-white transition-all duration-200">
-              {t.activities.seeAll}
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-            </a>
+
+              {/* Day headers */}
+              <div className="grid grid-cols-7 mb-2">
+                {days.map(d => (
+                  <div key={d} className="text-center text-xs font-bold text-gray-400 uppercase py-1">{d}</div>
+                ))}
+              </div>
+
+              {/* Day cells */}
+              <div className="grid grid-cols-7 gap-1">
+                {cells.map((day, idx) => {
+                  if (!day) return <div key={idx} />;
+                  const hasEvent = !!eventsThisMonth[day];
+                  const isSelected = day === selectedDay;
+                  const isToday = day === today.getDate() && calMonth === today.getMonth() && calYear === today.getFullYear();
+
+                  return (
+                    <button
+                      key={idx}
+                      onClick={() => setSelectedDay(isSelected ? null : day)}
+                      className={`
+                        relative h-10 w-full rounded-xl text-sm font-semibold transition-all duration-150
+                        ${isSelected ? "bg-[#C8102E] text-white shadow-md shadow-[#C8102E]/30" : ""}
+                        ${!isSelected && isToday ? "bg-[#1a1a2e] text-white" : ""}
+                        ${!isSelected && !isToday && hasEvent ? "text-[#C8102E] hover:bg-[#C8102E]/10" : ""}
+                        ${!isSelected && !isToday && !hasEvent ? "text-gray-600 hover:bg-gray-100" : ""}
+                      `}
+                    >
+                      {day}
+                      {hasEvent && !isSelected && (
+                        <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[#C8102E]" />
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Legend */}
+              <div className="mt-4 pt-4 border-t border-gray-100 flex flex-wrap items-center gap-4 text-xs text-gray-400">
+                <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-[#C8102E] inline-block" />{lang === "fr" ? "Événement" : "Event"}</span>
+                <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-[#1a1a2e] inline-block" />{lang === "fr" ? "Aujourd'hui" : "Today"}</span>
+              </div>
+            </div>
+
+            {/* Event detail panel */}
+            <div className="lg:col-span-2 flex flex-col gap-4">
+              {selectedEvent ? (
+                <div className="bg-white border border-gray-100 rounded-3xl shadow-sm p-6 flex flex-col gap-4">
+                  {/* Date badge */}
+                  <div className="flex items-center gap-4">
+                    <div className="w-16 h-16 rounded-2xl bg-[#C8102E] text-white flex flex-col items-center justify-center flex-shrink-0 shadow-md shadow-[#C8102E]/30">
+                      <span className="font-extrabold text-2xl leading-none">{selectedEvent.date.day}</span>
+                      <span className="text-xs text-red-200 mt-0.5">{selectedEvent.date.month}</span>
+                    </div>
+                    <div>
+                      <span className="text-xs font-bold px-2.5 py-1 rounded-full" style={{ background: `${selectedEvent.typeColor}15`, color: selectedEvent.typeColor }}>
+                        {selectedEvent.type}
+                      </span>
+                      <h4 className="font-extrabold text-[#1a1a2e] text-base mt-2 leading-snug">{selectedEvent.title}</h4>
+                    </div>
+                  </div>
+                  <div className="space-y-2.5 pt-2 border-t border-gray-100">
+                    <div className="flex items-center gap-3 text-sm text-gray-600">
+                      <span className="w-8 h-8 rounded-xl bg-gray-100 flex items-center justify-center text-base">📍</span>
+                      {selectedEvent.location}
+                    </div>
+                    <div className="flex items-center gap-3 text-sm text-gray-600">
+                      <span className="w-8 h-8 rounded-xl bg-gray-100 flex items-center justify-center text-base">🕐</span>
+                      {selectedEvent.time}
+                    </div>
+                  </div>
+                  <a href="#contact" className="mt-2 w-full py-3 rounded-2xl bg-[#1a1a2e] text-white text-sm font-bold text-center hover:bg-[#0f3460] transition-colors">
+                    {lang === "fr" ? "Je m'inscris" : "Register"}
+                  </a>
+                </div>
+              ) : (
+                <div className="bg-gray-50 border border-dashed border-gray-200 rounded-3xl p-8 flex flex-col items-center justify-center text-center min-h-[200px]">
+                  <span className="text-4xl mb-3">📅</span>
+                  <p className="text-gray-500 text-sm font-medium">
+                    {lang === "fr" ? "Cliquez sur une date pour voir les détails de l'événement." : "Click on a date to see event details."}
+                  </p>
+                </div>
+              )}
+
+              {/* All events list */}
+              {t.activities.events.length > 0 && (
+                <div className="bg-white border border-gray-100 rounded-3xl shadow-sm p-5">
+                  <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">
+                    {lang === "fr" ? "Tous les événements" : "All events"}
+                  </p>
+                  <div className="space-y-3">
+                    {t.activities.events.map((ev) => (
+                      <div key={ev.title} className="flex items-center gap-3">
+                        <div className="w-9 h-9 rounded-xl flex-shrink-0 flex flex-col items-center justify-center text-white text-xs font-extrabold" style={{ background: ev.typeColor }}>
+                          <span>{ev.date.day}</span>
+                        </div>
+                        <div className="min-w-0">
+                          <p className="text-sm font-bold text-[#1a1a2e] truncate">{ev.title}</p>
+                          <p className="text-xs text-gray-400">{ev.time}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
