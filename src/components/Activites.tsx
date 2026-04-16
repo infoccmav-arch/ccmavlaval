@@ -4,6 +4,8 @@ import { useLanguage } from "@/context/LanguageContext";
 
 const MONTHS_FR = ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"];
 const MONTHS_EN = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+const MONTHS_FR_SHORT = ["jan","fév","mar","avr","mai","juin","juil","août","sep","oct","nov","déc"];
+const MONTHS_EN_SHORT = ["jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"];
 const DAYS_FR = ["Lun","Mar","Mer","Jeu","Ven","Sam","Dim"];
 const DAYS_EN = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
 
@@ -32,10 +34,11 @@ export default function Activites() {
   // Also index events by day+month for current view
   const eventsThisMonth: Record<number, typeof t.activities.events[0]> = {};
   t.activities.events.forEach((ev) => {
-    const evMonthName = ev.date.month;
-    const evMonthIdx = lang === "fr"
-      ? MONTHS_FR.findIndex(m => m.toLowerCase().startsWith(evMonthName.toLowerCase().substring(0,3)))
-      : MONTHS_EN.findIndex(m => m.toLowerCase().startsWith(evMonthName.toLowerCase().substring(0,3)));
+    const evMonthName = ev.date.month.toLowerCase().substring(0, 3);
+    const shortList = lang === "fr" ? MONTHS_FR_SHORT : MONTHS_EN_SHORT;
+    const fullList  = lang === "fr" ? MONTHS_FR : MONTHS_EN;
+    let evMonthIdx = shortList.findIndex(m => m.startsWith(evMonthName) || evMonthName.startsWith(m.substring(0,3)));
+    if (evMonthIdx === -1) evMonthIdx = fullList.findIndex(m => m.toLowerCase().startsWith(evMonthName));
     if (evMonthIdx === calMonth) {
       eventsThisMonth[parseInt(ev.date.day)] = ev;
     }

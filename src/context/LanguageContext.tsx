@@ -46,6 +46,13 @@ const translations = {
       ],
       events: [
         { date: { day: "09", month: "Mai" }, type: "Communauté", typeColor: "#C8102E", title: "Portes ouvertes — CCMAV", location: "Centre CCMAV", time: "18h30 – 21h30" },
+        { date: { day: "19", month: "Juin" }, type: "Culture", typeColor: "#E11D78", title: "Soirée multiculturelle — Juin", location: "Centre CCMAV", time: "18h30 – 21h30" },
+        { date: { day: "17", month: "Juil" }, type: "Culture", typeColor: "#E11D78", title: "Soirée multiculturelle — Juillet", location: "Centre CCMAV", time: "18h30 – 21h30" },
+        { date: { day: "21", month: "Août" }, type: "Culture", typeColor: "#E11D78", title: "Soirée multiculturelle — Août", location: "Centre CCMAV", time: "18h30 – 21h30" },
+        { date: { day: "18", month: "Sep" }, type: "Culture", typeColor: "#E11D78", title: "Soirée multiculturelle — Septembre", location: "Centre CCMAV", time: "18h30 – 21h30" },
+        { date: { day: "16", month: "Oct" }, type: "Culture", typeColor: "#E11D78", title: "Soirée multiculturelle — Octobre", location: "Centre CCMAV", time: "18h30 – 21h30" },
+        { date: { day: "20", month: "Nov" }, type: "Culture", typeColor: "#E11D78", title: "Soirée multiculturelle — Novembre", location: "Centre CCMAV", time: "18h30 – 21h30" },
+        { date: { day: "18", month: "Déc" }, type: "Culture", typeColor: "#E11D78", title: "Soirée multiculturelle — Décembre", location: "Centre CCMAV", time: "18h30 – 21h30" },
       ],
     },
     about: {
@@ -188,6 +195,13 @@ const translations = {
       ],
       events: [
         { date: { day: "09", month: "May" }, type: "Community", typeColor: "#C8102E", title: "Open House — CCMAV", location: "CCMAV Centre", time: "6:30pm – 9:30pm" },
+        { date: { day: "19", month: "Jun" }, type: "Culture", typeColor: "#E11D78", title: "Multicultural Evening — June", location: "CCMAV Centre", time: "6:30pm – 9:30pm" },
+        { date: { day: "17", month: "Jul" }, type: "Culture", typeColor: "#E11D78", title: "Multicultural Evening — July", location: "CCMAV Centre", time: "6:30pm – 9:30pm" },
+        { date: { day: "21", month: "Aug" }, type: "Culture", typeColor: "#E11D78", title: "Multicultural Evening — August", location: "CCMAV Centre", time: "6:30pm – 9:30pm" },
+        { date: { day: "18", month: "Sep" }, type: "Culture", typeColor: "#E11D78", title: "Multicultural Evening — September", location: "CCMAV Centre", time: "6:30pm – 9:30pm" },
+        { date: { day: "16", month: "Oct" }, type: "Culture", typeColor: "#E11D78", title: "Multicultural Evening — October", location: "CCMAV Centre", time: "6:30pm – 9:30pm" },
+        { date: { day: "20", month: "Nov" }, type: "Culture", typeColor: "#E11D78", title: "Multicultural Evening — November", location: "CCMAV Centre", time: "6:30pm – 9:30pm" },
+        { date: { day: "18", month: "Dec" }, type: "Culture", typeColor: "#E11D78", title: "Multicultural Evening — December", location: "CCMAV Centre", time: "6:30pm – 9:30pm" },
       ],
     },
     about: {
