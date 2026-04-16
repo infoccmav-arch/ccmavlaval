@@ -69,8 +69,8 @@ const translations = {
       ],
       caTitle: "Notre conseil d'administration",
       caMembers: [
-        { nom: "Midley Bien-Aimé", role: "Président(e)" },
-        { nom: "Jeannot Bien-Aimé", role: "Vice-président(e)" },
+        { nom: "Midley Bien-Aimé", role: "Administrateur" },
+        { nom: "Jeannot Bien-Aimé", role: "Administrateur" },
         { nom: "Jean-Merlet Dorsainvil", role: "Administrateur" },
       ],
       flagsDesc: "Des dizaines de nationalités représentées dans notre communauté",
@@ -213,8 +213,8 @@ const translations = {
       ],
       caTitle: "Our board of directors",
       caMembers: [
-        { nom: "Midley Bien-Aimé", role: "President" },
-        { nom: "Jeannot Bien-Aimé", role: "Vice-president" },
+        { nom: "Midley Bien-Aimé", role: "Administrator" },
+        { nom: "Jeannot Bien-Aimé", role: "Administrator" },
         { nom: "Jean-Merlet Dorsainvil", role: "Administrator" },
       ],
       flagsDesc: "Dozens of nationalities represented in our community",
