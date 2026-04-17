@@ -29,7 +29,7 @@ const faqFr = [
   },
   {
     q: "Comment soutenir financièrement le CCMAV ?",
-    a: "Vous pouvez faire un don ponctuel ou devenir membre officiel pour 10$/an via notre page Zeffy. Chaque contribution, grande ou petite, nous aide à offrir davantage de services à la communauté.",
+    a: "Vous pouvez faire un don en visitant la section « Soutenir » de notre site. Chaque contribution, grande ou petite, nous aide directement à offrir davantage de services à la communauté. Vous pouvez aussi devenir membre officiel pour seulement 10$/an.",
   },
 ];
 
@@ -60,7 +60,7 @@ const faqEn = [
   },
   {
     q: "How can I financially support CCMAV?",
-    a: "You can make a one-time donation or become an official member for $10/year via our Zeffy page. Every contribution, large or small, helps us offer more services to the community.",
+    a: "You can make a donation by visiting the \"Support\" section of our website. Every contribution, large or small, directly helps us offer more services to the community. You can also become an official member for only $10/year.",
   },
 ];
 
