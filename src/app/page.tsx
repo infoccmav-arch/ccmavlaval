@@ -8,6 +8,7 @@ import Soutenir from "@/components/Soutenir";
 import Temoignages from "@/components/Temoignages";
 import Contact from "@/components/Contact";
 import Rejoindre from "@/components/Rejoindre";
+import FAQ from "@/components/FAQ";
 import Partenaires from "@/components/Partenaires";
 import Footer from "@/components/Footer";
 import BackToTop from "@/components/BackToTop";
@@ -25,6 +26,7 @@ export default function Home() {
         <Soutenir />
         <Temoignages />
         <Partenaires />
+        <FAQ />
         <Contact />
       </main>
       <Footer />
