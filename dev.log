@@ -18,3 +18,13 @@
  ✓ Compiled / in 3.3s
  GET / 200 in 3839ms
  GET /?_cb=1776531633176 200 in 198ms
+ ⚠ Found a change in next.config.ts. Restarting the server to apply the changes...
+ ⚠ Found lockfile missing swc dependencies, patching...
+   ▲ Next.js 15.5.9 (Turbopack)
+   - Local:        http://localhost:3000
+   - Network:      http://172.20.0.12:3000
+
+ ✓ Starting...
+ ⨯ Failed to patch lockfile, please try uninstalling and reinstalling next in this workspace
+[TypeError: Cannot read properties of undefined (reading 'os')]
+ ✓ Ready in 939ms
