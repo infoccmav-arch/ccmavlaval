@@ -9,8 +9,12 @@ const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Centre Communautaire Multiculturel Auteuil Vimont — Laval",
+  title: "CCMAV — Centre Communautaire Multiculturel Auteuil Vimont Laval",
   description: "Centre communautaire multiculturel au cœur d'Auteuil Vimont, Laval. Services d'intégration, activités culturelles, cours de français et bien plus.",
+  icons: {
+    icon: "/icon.png",
+    apple: "/icon.png",
+  },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
