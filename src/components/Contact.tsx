@@ -68,11 +68,69 @@ export default function Contact() {
           </div>
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
             {submitted ? (
-              <div className="flex flex-col items-center justify-center h-full text-center py-12 gap-4">
-                <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center text-3xl">✅</div>
-                <h3 className="text-xl font-bold text-[#1a1a2e]">{c.successTitle}</h3>
-                <p className="text-gray-500 text-sm max-w-xs">{c.successMsg}</p>
-                <button onClick={() => { setSubmitted(false); setForm({ nom: "", email: "", sujet: "", message: "" }); }} className="mt-2 text-sm text-[#C8102E] underline">{c.sendAnother}</button>
+              <div className="flex flex-col items-center justify-center h-full text-center py-8 gap-5">
+                {/* Animated checkmark circle */}
+                <div className="relative">
+                  <div className="w-24 h-24 rounded-full bg-green-50 border-4 border-green-400 flex items-center justify-center animate-[successPop_0.5s_ease-out]">
+                    <svg className="w-12 h-12 text-green-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path className="animate-[checkDraw_0.6s_ease-out_0.3s_both]" d="M5 13l4 4L19 7" style={{ strokeDasharray: 30, strokeDashoffset: 0 }} />
+                    </svg>
+                  </div>
+                  {/* Confetti dots */}
+                  {["top-0 -right-2 bg-[#C8102E]", "-top-2 left-4 bg-[#F4A300]", "top-2 -left-3 bg-[#006B3C]", "-bottom-1 right-3 bg-[#003087]", "bottom-0 -left-1 bg-[#E11D78]"].map((cls, i) => (
+                    <span key={i} className={`absolute w-3 h-3 rounded-full ${cls} animate-bounce`} style={{ animationDelay: `${i * 0.1}s`, animationDuration: "1s" }} />
+                  ))}
+                </div>
+
+                {/* Title */}
+                <div>
+                  <h3 className="text-2xl font-extrabold text-[#1a1a2e] mb-1">{c.successTitle}</h3>
+                  <p className="text-gray-500 text-sm">{c.successMsg}</p>
+                </div>
+
+                {/* Info card */}
+                <div className="w-full bg-gray-50 rounded-xl border border-gray-100 px-5 py-4 text-left space-y-2">
+                  <div className="flex items-center gap-2 text-sm text-gray-600">
+                    <span className="text-lg">👤</span>
+                    <span className="font-semibold text-[#1a1a2e]">{form.nom}</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-gray-600">
+                    <span className="text-lg">✉️</span>
+                    <span>{form.email}</span>
+                  </div>
+                  {form.sujet && (
+                    <div className="flex items-center gap-2 text-sm text-gray-600">
+                      <span className="text-lg">📌</span>
+                      <span>{form.sujet}</span>
+                    </div>
+                  )}
+                </div>
+
+                {/* Response time badge */}
+                <div className="flex items-center gap-2 bg-[#006B3C]/10 text-[#006B3C] text-xs font-semibold px-4 py-2 rounded-full">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                  {c.responseTime}
+                </div>
+
+                {/* Social links */}
+                <div className="w-full">
+                  <p className="text-xs text-gray-400 mb-2 text-center">{c.followUs}</p>
+                  <div className="flex justify-center gap-2">
+                    <a href="https://www.facebook.com/profile.php?id=61585729761252" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full bg-[#1877F2] flex items-center justify-center hover:opacity-80 transition">
+                      <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+                    </a>
+                    <a href="https://www.instagram.com/ccmav_laval/" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full bg-gradient-to-br from-[#F58529] via-[#DD2A7B] to-[#8134AF] flex items-center justify-center hover:opacity-80 transition">
+                      <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="currentColor" strokeWidth="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" strokeWidth="2"/><circle cx="17.5" cy="6.5" r="1.5"/></svg>
+                    </a>
+                  </div>
+                </div>
+
+                <button
+                  onClick={() => { setSubmitted(false); setForm({ nom: "", email: "", sujet: "", message: "" }); }}
+                  className="text-sm text-[#C8102E] hover:underline font-medium transition"
+                >
+                  ← {c.sendAnother}
+                </button>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-5">

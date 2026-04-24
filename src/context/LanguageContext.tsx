@@ -138,6 +138,8 @@ const translations = {
       successMsg: "Nous vous répondrons dans les plus brefs délais.",
       sendAnother: "Envoyer un autre message",
       errorMsg: "Erreur lors de l'envoi. Réessayez.",
+      responseTime: "Réponse habituelle sous 24–48h",
+      followUs: "Rejoignez-nous sur les réseaux",
     },
     footer: {
       description: "Centre communautaire multiculturel au cœur d'Auteuil Vimont, Laval. Intégration, culture et entraide pour tous.",
@@ -280,6 +282,8 @@ const translations = {
       successMsg: "We will get back to you as soon as possible.",
       sendAnother: "Send another message",
       errorMsg: "Error sending. Please try again.",
+      responseTime: "Usual response within 24–48h",
+      followUs: "Follow us on social media",
     },
     footer: {
       description: "Multicultural community centre in the heart of Auteuil Vimont, Laval. Integration, culture and mutual aid for all.",
