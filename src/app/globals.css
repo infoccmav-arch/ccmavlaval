@@ -125,3 +125,43 @@
 nextjs-portal {
   display: none !important;
 }
+
+/* ── Dark mode overrides ────────────────────────────────── */
+.dark body { background-color: #0f172a; color: #e2e8f0; }
+
+/* Backgrounds */
+.dark .bg-white        { background-color: #1e293b !important; }
+.dark .bg-gray-50      { background-color: #0f172a !important; }
+.dark .bg-gray-100     { background-color: #1e293b !important; }
+
+/* Text */
+.dark .text-gray-600   { color: #94a3b8 !important; }
+.dark .text-gray-500   { color: #94a3b8 !important; }
+.dark .text-gray-400   { color: #64748b !important; }
+.dark .text-gray-700   { color: #cbd5e1 !important; }
+.dark .text-\[\#1a1a2e\] { color: #f1f5f9 !important; }
+
+/* Borders */
+.dark .border-gray-100 { border-color: #334155 !important; }
+.dark .border-gray-200 { border-color: #334155 !important; }
+
+/* Cards & shadows */
+.dark .shadow-sm  { box-shadow: 0 1px 3px 0 rgba(0,0,0,0.4) !important; }
+.dark .shadow-md  { box-shadow: 0 4px 6px -1px rgba(0,0,0,0.5) !important; }
+.dark .shadow-xl  { box-shadow: 0 20px 25px -5px rgba(0,0,0,0.6) !important; }
+
+/* Navbar specific */
+.dark header.bg-white  { background-color: #1e293b !important; }
+.dark header           { border-bottom: 1px solid #334155; }
+
+/* Inputs & selects */
+.dark input, .dark textarea, .dark select {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+  color: #e2e8f0 !important;
+}
+
+/* Smooth transition */
+*, *::before, *::after {
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.1s ease;
+}
