@@ -8,58 +8,13 @@
  ⚠ Found lockfile missing swc dependencies, patching...
    ▲ Next.js 15.5.9 (Turbopack)
    - Local:        http://localhost:3000
-   - Network:      http://172.20.0.12:3000
+   - Network:      http://172.20.0.5:3000
 
  ✓ Starting...
  ⨯ Failed to patch lockfile, please try uninstalling and reinstalling next in this workspace
 [TypeError: Cannot read properties of undefined (reading 'os')]
- ✓ Ready in 958ms
+ ✓ Ready in 1200ms
  ○ Compiling / ...
- ✓ Compiled / in 3.3s
- GET / 200 in 3839ms
- GET /?_cb=1776531633176 200 in 198ms
- ⚠ Found a change in next.config.ts. Restarting the server to apply the changes...
- ⚠ Found lockfile missing swc dependencies, patching...
-   ▲ Next.js 15.5.9 (Turbopack)
-   - Local:        http://localhost:3000
-   - Network:      http://172.20.0.12:3000
-
- ✓ Starting...
- ⨯ Failed to patch lockfile, please try uninstalling and reinstalling next in this workspace
-[TypeError: Cannot read properties of undefined (reading 'os')]
- ✓ Ready in 939ms
- ○ Compiling / ...
- ✓ Compiled / in 3.3s
- ⨯ [Error: ENOENT: no such file or directory, open '/home/user/app/.next/static/development/_buildManifest.js.tmp.sruw27vr95'] {
-  errno: -2,
-  code: 'ENOENT',
-  syscall: 'open',
-  path: '/home/user/app/.next/static/development/_buildManifest.js.tmp.sruw27vr95'
-}
- ○ Compiling /_error ...
- ✓ Compiled /_error in 1016ms
- ⨯ [Error: ENOENT: no such file or directory, open '/home/user/app/.next/static/development/_buildManifest.js.tmp.ptoxtrx9p4'] {
-  errno: -2,
-  code: 'ENOENT',
-  syscall: 'open',
-  path: '/home/user/app/.next/static/development/_buildManifest.js.tmp.ptoxtrx9p4'
-}
-[Error: ENOENT: no such file or directory, open '/home/user/app/.next/static/development/_buildManifest.js.tmp.sruw27vr95'] {
-  errno: -2,
-  code: 'ENOENT',
-  syscall: 'open',
-  path: '/home/user/app/.next/static/development/_buildManifest.js.tmp.sruw27vr95'
-}
- ⨯ [Error: ENOENT: no such file or directory, open '/home/user/app/.next/static/development/_buildManifest.js.tmp.ujx6rd1f94o'] {
-  errno: -2,
-  code: 'ENOENT',
-  syscall: 'open',
-  path: '/home/user/app/.next/static/development/_buildManifest.js.tmp.ujx6rd1f94o'
-}
-[Error: ENOENT: no such file or directory, open '/home/user/app/.next/static/development/_buildManifest.js.tmp.gfyrfm1hb09'] {
-  errno: -2,
-  code: 'ENOENT',
-  syscall: 'open',
-  path: '/home/user/app/.next/static/development/_buildManifest.js.tmp.gfyrfm1hb09'
-}
-[?25h
+ ✓ Compiled / in 4.3s
+ GET / 200 in 4984ms
+ GET / 200 in 199ms
