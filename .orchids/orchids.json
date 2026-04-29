@@ -3,7 +3,7 @@
   "createdAt": 1771955342799,
   "version": "1.0",
   "startupCommands": [
-    "bun install; bun run dev"
+    "npm install; node_modules/.bin/next dev --port 3000"
   ],
   "templateId": "any"
 }
