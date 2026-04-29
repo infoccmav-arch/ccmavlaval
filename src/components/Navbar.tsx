@@ -62,6 +62,9 @@ export default function Navbar() {
                 {link.label}
               </a>
             ))}
+            <Link href="/cours-de-francais" className="flex items-center gap-1.5 text-sm font-semibold text-[#003087] hover:text-[#C8102E] transition-colors duration-200 border border-[#003087]/30 px-3 py-1.5 rounded-full hover:border-[#C8102E]">
+              🇫🇷 {lang === "fr" ? "Cours de français" : "French Courses"}
+            </Link>
             <a href="#contact" className="ml-2 px-4 py-2 rounded-full bg-[#C8102E] text-white text-sm font-semibold hover:bg-[#a50d26] transition-colors duration-200 shadow">
               {t.nav.join}
             </a>
@@ -95,6 +98,9 @@ export default function Navbar() {
                 {link.label}
               </a>
             ))}
+            <Link href="/cours-de-francais" onClick={() => setMenuOpen(false)} className="flex items-center gap-2 text-base font-semibold text-[#003087] hover:text-[#C8102E] py-1 transition-colors">
+              🇫🇷 {lang === "fr" ? "Cours de français" : "French Courses"}
+            </Link>
             <a href="#contact" onClick={() => setMenuOpen(false)} className="mt-2 px-4 py-2 rounded-full bg-[#C8102E] text-white text-sm font-semibold text-center hover:bg-[#a50d26] transition-colors shadow">
               {t.nav.join}
             </a>
