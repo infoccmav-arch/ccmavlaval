@@ -13,24 +13,6 @@ let nextConfig: NextConfig = {
   eslint:      { ignoreDuringBuilds: true },
 };
 
-// Orchids visual editor — only in local dev, not on Vercel
-if (!isVercel) {
-  try {
-    const path = require("node:path");
-    const loaderPath = require.resolve('orchids-visual-edits/loader.js');
-    nextConfig = {
-      ...nextConfig,
-      outputFileTracingRoot: path.resolve(__dirname, '../../'),
-      turbopack: {
-        rules: {
-          "*.tsx": { loaders: [loaderPath], as: "*.tsx" },
-          "*.jsx": { loaders: [loaderPath], as: "*.jsx" },
-        },
-      },
-    } as NextConfig;
-  } catch {
-    // orchids-visual-edits not available, skip
-  }
-}
+// Orchids visual editor config intentionally removed for stability
 
 export default nextConfig;
