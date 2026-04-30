@@ -23,7 +23,8 @@ if (!isVercel) {
       outputFileTracingRoot: path.resolve(__dirname, '../../'),
       turbopack: {
         rules: {
-          "*.{jsx,tsx}": { loaders: [loaderPath] },
+          "*.tsx": { loaders: [loaderPath], as: "*.tsx" },
+          "*.jsx": { loaders: [loaderPath], as: "*.jsx" },
         },
       },
     } as NextConfig;

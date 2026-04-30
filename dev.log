@@ -1,20 +1,23 @@
-
-> nextjs-new@0.1.0 dev
-> next dev --turbopack --port 3000
-
  ⚠ Found lockfile missing swc dependencies, patching...
  ⨯ Failed to patch lockfile, please try uninstalling and reinstalling next in this workspace
 [TypeError: Cannot read properties of undefined (reading 'os')]
- ⚠ Found lockfile missing swc dependencies, patching...
-   ▲ Next.js 15.5.9 (Turbopack)
+   ▲ Next.js 15.5.9
    - Local:        http://localhost:3000
-   - Network:      http://172.20.0.5:3000
+   - Network:      http://172.20.0.29:3000
 
  ✓ Starting...
+Attention: Next.js now collects completely anonymous telemetry regarding usage.
+This information is used to shape Next.js' roadmap and prioritize features.
+You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+https://nextjs.org/telemetry
+
+ ⚠ Found lockfile missing swc dependencies, patching...
  ⨯ Failed to patch lockfile, please try uninstalling and reinstalling next in this workspace
 [TypeError: Cannot read properties of undefined (reading 'os')]
- ✓ Ready in 1200ms
+ ✓ Ready in 1185ms
  ○ Compiling / ...
- ✓ Compiled / in 4.3s
- GET / 200 in 4984ms
- GET / 200 in 199ms
+ ✓ Compiled / in 2.5s (748 modules)
+ GET / 200 in 2971ms
+ GET / 200 in 124ms
+ GET / 200 in 135ms
+ ✓ Compiled in 147ms (277 modules)
