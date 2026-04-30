@@ -1,21 +1,4 @@
  ⚠ Found lockfile missing swc dependencies, patching...
- ⨯ Failed to start server
-Error: listen EADDRINUSE: address already in use :::3000
-    at <unknown> (Error: listen EADDRINUSE: address already in use :::3000)
-    at new Promise (<anonymous>) {
-  code: 'EADDRINUSE',
-  errno: -98,
-  syscall: 'listen',
-  address: '::',
-  port: 3000
-}
-Attention: Next.js now collects completely anonymous telemetry regarding usage.
-This information is used to shape Next.js' roadmap and prioritize features.
-You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
-https://nextjs.org/telemetry
-
-[?25h
- ⚠ Found lockfile missing swc dependencies, patching...
  ⨯ Failed to patch lockfile, please try uninstalling and reinstalling next in this workspace
 [TypeError: Cannot read properties of undefined (reading 'os')]
    ▲ Next.js 15.5.9
@@ -31,35 +14,7 @@ https://nextjs.org/telemetry
  ⚠ Found lockfile missing swc dependencies, patching...
  ⨯ Failed to patch lockfile, please try uninstalling and reinstalling next in this workspace
 [TypeError: Cannot read properties of undefined (reading 'os')]
- ✓ Ready in 1287ms
- ○ Compiling / ...
- ✓ Compiled / in 2.7s (748 modules)
- GET / 200 in 3125ms
- ✓ Compiled /cours-de-francais in 337ms (737 modules)
- GET /cours-de-francais 200 in 502ms
- GET /cours-de-francais?_cb=1777519436416 200 in 51ms
- ⚠ Cross origin request detected from 3000-de798e0b-2adf-4539-a929-545133183f60.orchids.cloud to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
-Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
- GET / 200 in 38ms
- GET /?_cb=1777519436416 200 in 135ms
- GET / 200 in 280ms
- GET /?_cb=1777519588282 200 in 131ms
- ✓ Compiled in 151ms (279 modules)
- GET /?_cb=1777519588282 200 in 25ms
- ✓ Compiled in 150ms (279 modules)
- ✓ Compiled in 119ms (723 modules)
- GET /?_cb=1777519588282 200 in 92ms
- GET /?_cb=1777519588282 200 in 23ms
- GET /?_cb=1777519588282 200 in 27ms
- ✓ Compiled in 301ms (737 modules)
- GET /?_cb=1777519588282 200 in 105ms
- ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
- GET /?_cb=1777519588282 200 in 194ms
- ✓ Compiled in 162ms (737 modules)
- GET /?_cb=1777519588282 200 in 56ms
- ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
- GET /?_cb=1777519588282 200 in 174ms
- ✓ Compiled /aide-emploi in 246ms (730 modules)
- GET /aide-emploi 200 in 299ms
- GET /aide-emploi?_cb=1777519588282 200 in 77ms
- GET /aide-emploi?_cb=1777520022390 200 in 47ms
+ ✓ Ready in 1163ms
+ ○ Compiling /aide-emploi ...
+ ✓ Compiled /aide-emploi in 2.5s (698 modules)
+ GET /aide-emploi 200 in 2789ms
