@@ -22,100 +22,134 @@ const emptyCV: CVData = {
 };
 
 /* ──────────────────────────────────────────────────────
-   CV PREVIEW (printable)
+   CV PREVIEW — full inline styles for perfect PDF export
 ────────────────────────────────────────────────────── */
+const S = {
+  page:      { fontFamily: "'Arial', sans-serif", fontSize: "11px", color: "#1a1a2e", background: "#fff", lineHeight: "1.5" } as React.CSSProperties,
+  header:    { background: "#003087", color: "#fff", padding: "20px 28px 16px" } as React.CSSProperties,
+  h1:        { fontSize: "22px", fontWeight: 700, margin: 0, letterSpacing: "0.5px" } as React.CSSProperties,
+  subtitle:  { fontSize: "11px", color: "#93c5fd", marginTop: "4px", fontWeight: 500 } as React.CSSProperties,
+  contactRow:{ display: "flex", flexWrap: "wrap" as const, gap: "12px", marginTop: "10px", fontSize: "10px", color: "#bfdbfe" },
+  body:      { padding: "16px 28px 20px" } as React.CSSProperties,
+  section:   { marginBottom: "14px" } as React.CSSProperties,
+  sectionTitle: { fontSize: "9px", fontWeight: 700, textTransform: "uppercase" as const, letterSpacing: "1.5px", color: "#C8102E", borderBottom: "1px solid #fca5a5", paddingBottom: "3px", marginBottom: "8px" } as React.CSSProperties,
+  expBlock:  { marginBottom: "10px", paddingLeft: "10px", borderLeft: "2px solid #93c5fd" } as React.CSSProperties,
+  expRow:    { display: "flex", justifyContent: "space-between", alignItems: "flex-start" } as React.CSSProperties,
+  expPoste:  { fontWeight: 700, fontSize: "11px", color: "#1a1a2e" } as React.CSSProperties,
+  expCo:     { fontSize: "10px", color: "#003087", fontWeight: 600 } as React.CSSProperties,
+  expDate:   { fontSize: "10px", color: "#9ca3af", whiteSpace: "nowrap" as const, marginLeft: "8px" } as React.CSSProperties,
+  expTaches: { fontSize: "10px", color: "#4b5563", marginTop: "3px", lineHeight: "1.5" } as React.CSSProperties,
+  fmtRow:    { display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "7px" } as React.CSSProperties,
+  fmtDiplome:{ fontWeight: 700, fontSize: "11px" } as React.CSSProperties,
+  fmtEtab:   { fontSize: "10px", color: "#003087" } as React.CSSProperties,
+  fmtAnnee:  { fontSize: "10px", color: "#9ca3af", marginLeft: "8px", whiteSpace: "nowrap" as const } as React.CSSProperties,
+  twoCol:    { display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" } as React.CSSProperties,
+  badge:     { display: "inline-block", background: "#dbeafe", color: "#1e3a8a", fontSize: "9px", padding: "2px 7px", borderRadius: "99px", marginRight: "4px", marginBottom: "4px", fontWeight: 600 } as React.CSSProperties,
+  langRow:   { display: "flex", justifyContent: "space-between", fontSize: "10px", marginBottom: "3px" } as React.CSSProperties,
+  langName:  { fontWeight: 600 } as React.CSSProperties,
+  langLvl:   { color: "#6b7280" } as React.CSSProperties,
+  loisirs:   { fontSize: "10px", color: "#4b5563" } as React.CSSProperties,
+  profil:    { fontSize: "10px", color: "#374151", lineHeight: "1.6" } as React.CSSProperties,
+};
+
 function CVPreview({ cv }: { cv: CVData }) {
-  const hasExp = cv.experiences.some(e => e.poste || e.entreprise);
-  const hasFmt = cv.formations.some(f => f.diplome || f.etablissement);
+  const hasExp  = cv.experiences.some(e => e.poste || e.entreprise);
+  const hasFmt  = cv.formations.some(f => f.diplome || f.etablissement);
   const hasLang = cv.langues.some(l => l.langue);
+  const hasComp = cv.competences.trim().length > 0;
+
   return (
-    <div className="bg-white text-[#1a1a2e] font-sans text-sm leading-relaxed" style={{ fontFamily: "Georgia, serif" }}>
-      {/* Header */}
-      <div className="bg-[#003087] text-white px-8 py-6">
-        <h1 className="text-2xl font-bold tracking-wide">{cv.prenom || "Prénom"} {cv.nom || "Nom"}</h1>
-        {cv.titre && <p className="text-blue-200 text-sm mt-1 font-medium">{cv.titre}</p>}
-        <div className="flex flex-wrap gap-4 mt-3 text-xs text-blue-100">
-          {cv.email && <span>✉ {cv.email}</span>}
-          {cv.telephone && <span>📞 {cv.telephone}</span>}
-          {cv.ville && <span>📍 {cv.ville}</span>}
-          {cv.linkedin && <span>🔗 {cv.linkedin}</span>}
+    <div style={S.page}>
+      {/* ── Header bleu ── */}
+      <div style={S.header}>
+        <h1 style={S.h1}>{cv.prenom || "Prénom"} {cv.nom || "Nom"}</h1>
+        {cv.titre && <p style={S.subtitle}>{cv.titre}</p>}
+        <div style={S.contactRow}>
+          {cv.email     && <span>✉ {cv.email}</span>}
+          {cv.telephone && <span>✆ {cv.telephone}</span>}
+          {cv.ville     && <span>⚲ {cv.ville}</span>}
+          {cv.linkedin  && <span>in {cv.linkedin}</span>}
         </div>
       </div>
 
-      <div className="px-8 py-6 space-y-5">
-        {/* Profil */}
+      <div style={S.body}>
+        {/* ── Profil ── */}
         {cv.profil && (
-          <div>
-            <h2 className="text-xs font-bold uppercase tracking-widest text-[#C8102E] border-b border-[#C8102E]/30 pb-1 mb-2">Profil professionnel</h2>
-            <p className="text-gray-700 text-xs leading-relaxed">{cv.profil}</p>
+          <div style={S.section}>
+            <div style={S.sectionTitle}>Profil professionnel</div>
+            <p style={S.profil}>{cv.profil}</p>
           </div>
         )}
 
-        {/* Expériences */}
+        {/* ── Expériences ── */}
         {hasExp && (
-          <div>
-            <h2 className="text-xs font-bold uppercase tracking-widest text-[#C8102E] border-b border-[#C8102E]/30 pb-1 mb-3">Expériences professionnelles</h2>
+          <div style={S.section}>
+            <div style={S.sectionTitle}>Expériences professionnelles</div>
             {cv.experiences.filter(e => e.poste || e.entreprise).map((exp, i) => (
-              <div key={i} className="mb-3 pl-3 border-l-2 border-[#003087]/20">
-                <div className="flex justify-between items-start">
+              <div key={i} style={S.expBlock}>
+                <div style={S.expRow}>
                   <div>
-                    <p className="font-bold text-[#1a1a2e] text-xs">{exp.poste}</p>
-                    <p className="text-[#003087] text-xs font-medium">{exp.entreprise}{exp.lieu ? ` — ${exp.lieu}` : ""}</p>
+                    <div style={S.expPoste}>{exp.poste}</div>
+                    <div style={S.expCo}>{exp.entreprise}{exp.lieu ? ` — ${exp.lieu}` : ""}</div>
                   </div>
-                  {(exp.debut || exp.fin) && <p className="text-gray-400 text-xs whitespace-nowrap ml-2">{exp.debut}{exp.fin ? ` – ${exp.fin}` : ""}</p>}
+                  {(exp.debut || exp.fin) && (
+                    <div style={S.expDate}>{exp.debut}{exp.fin ? ` – ${exp.fin}` : ""}</div>
+                  )}
                 </div>
-                {exp.taches && <p className="text-gray-600 text-xs mt-1 leading-relaxed">{exp.taches}</p>}
+                {exp.taches && <div style={S.expTaches}>{exp.taches}</div>}
               </div>
             ))}
           </div>
         )}
 
-        {/* Formation */}
+        {/* ── Formation ── */}
         {hasFmt && (
-          <div>
-            <h2 className="text-xs font-bold uppercase tracking-widest text-[#C8102E] border-b border-[#C8102E]/30 pb-1 mb-3">Formation</h2>
+          <div style={S.section}>
+            <div style={S.sectionTitle}>Formation</div>
             {cv.formations.filter(f => f.diplome || f.etablissement).map((fm, i) => (
-              <div key={i} className="mb-2 flex justify-between items-start">
+              <div key={i} style={S.fmtRow}>
                 <div>
-                  <p className="font-bold text-xs text-[#1a1a2e]">{fm.diplome}</p>
-                  <p className="text-[#003087] text-xs">{fm.etablissement}{fm.mention ? ` — ${fm.mention}` : ""}</p>
+                  <div style={S.fmtDiplome}>{fm.diplome}</div>
+                  <div style={S.fmtEtab}>{fm.etablissement}{fm.mention ? ` — ${fm.mention}` : ""}</div>
                 </div>
-                {fm.annee && <p className="text-gray-400 text-xs ml-2">{fm.annee}</p>}
+                {fm.annee && <div style={S.fmtAnnee}>{fm.annee}</div>}
               </div>
             ))}
           </div>
         )}
 
-        {/* Compétences + Langues */}
-        <div className="grid grid-cols-2 gap-4">
-          {cv.competences && (
-            <div>
-              <h2 className="text-xs font-bold uppercase tracking-widest text-[#C8102E] border-b border-[#C8102E]/30 pb-1 mb-2">Compétences</h2>
-              <div className="flex flex-wrap gap-1">
-                {cv.competences.split(",").map(c => c.trim()).filter(Boolean).map((comp, i) => (
-                  <span key={i} className="bg-[#003087]/10 text-[#003087] text-[10px] px-2 py-0.5 rounded-full font-medium">{comp}</span>
+        {/* ── Compétences + Langues ── */}
+        {(hasComp || hasLang) && (
+          <div style={{ ...S.section, ...S.twoCol }}>
+            {hasComp && (
+              <div>
+                <div style={S.sectionTitle}>Compétences</div>
+                <div>
+                  {cv.competences.split(",").map(c => c.trim()).filter(Boolean).map((comp, i) => (
+                    <span key={i} style={S.badge}>{comp}</span>
+                  ))}
+                </div>
+              </div>
+            )}
+            {hasLang && (
+              <div>
+                <div style={S.sectionTitle}>Langues</div>
+                {cv.langues.filter(l => l.langue).map((l, i) => (
+                  <div key={i} style={S.langRow}>
+                    <span style={S.langName}>{l.langue}</span>
+                    <span style={S.langLvl}>{l.niveau}</span>
+                  </div>
                 ))}
               </div>
-            </div>
-          )}
-          {hasLang && (
-            <div>
-              <h2 className="text-xs font-bold uppercase tracking-widest text-[#C8102E] border-b border-[#C8102E]/30 pb-1 mb-2">Langues</h2>
-              {cv.langues.filter(l => l.langue).map((l, i) => (
-                <div key={i} className="flex justify-between text-xs mb-0.5">
-                  <span className="font-medium text-[#1a1a2e]">{l.langue}</span>
-                  <span className="text-gray-400">{l.niveau}</span>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
+            )}
+          </div>
+        )}
 
-        {/* Loisirs */}
+        {/* ── Loisirs ── */}
         {cv.loisirs && (
-          <div>
-            <h2 className="text-xs font-bold uppercase tracking-widest text-[#C8102E] border-b border-[#C8102E]/30 pb-1 mb-2">Centres d'intérêt</h2>
-            <p className="text-gray-600 text-xs">{cv.loisirs}</p>
+          <div style={S.section}>
+            <div style={S.sectionTitle}>Centres d'intérêt</div>
+            <p style={S.loisirs}>{cv.loisirs}</p>
           </div>
         )}
       </div>
@@ -161,15 +195,24 @@ function CVBuilder() {
     if (!el) return;
     const win = window.open("", "_blank");
     if (!win) return;
-    win.document.write(`<html><head><title>CV — ${cv.prenom} ${cv.nom}</title>
-      <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: Georgia, serif; font-size: 11px; color: #1a1a2e; }
-        @page { margin: 1cm; size: A4; }
-      </style></head><body>${el.innerHTML}</body></html>`);
+    win.document.write(`<!DOCTYPE html>
+<html><head>
+  <meta charset="utf-8"/>
+  <title>CV — ${cv.prenom} ${cv.nom}</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 210mm; background: #fff; }
+    body { font-family: Arial, Helvetica, sans-serif; font-size: 11px; color: #1a1a2e; line-height: 1.5; }
+    @page { size: A4; margin: 0; }
+    @media print {
+      html, body { width: 210mm; height: 297mm; }
+      * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    }
+  </style>
+</head><body>${el.innerHTML}</body></html>`);
     win.document.close();
     win.focus();
-    setTimeout(() => { win.print(); win.close(); }, 400);
+    setTimeout(() => { win.print(); }, 600);
   }
 
   const inputCls = "w-full px-3 py-2 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#003087]/30 focus:border-[#003087] transition bg-white";
