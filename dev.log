@@ -18,3 +18,14 @@ https://nextjs.org/telemetry
  ○ Compiling /aide-emploi ...
  ✓ Compiled /aide-emploi in 2.5s (698 modules)
  GET /aide-emploi 200 in 2789ms
+ GET /aide-emploi?_cb=1777520293315 200 in 56ms
+ ⚠ Cross origin request detected from 3000-de798e0b-2adf-4539-a929-545133183f60.orchids.cloud to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
+Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+ ○ Compiling / ...
+ ✓ Compiled / in 567ms (737 modules)
+ GET / 200 in 695ms
+ GET / 200 in 26ms
+ GET /?_cb=1777520293315 200 in 222ms
+ GET /?_cb=1777520293315 200 in 266ms
+ GET /?_cb=1777520384881 200 in 132ms
+ GET /?_cb=1777520385593 200 in 106ms
