@@ -29,3 +29,5 @@ Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allow
  ✓ Compiled /cours-de-francais in 273ms (723 modules)
  GET /cours-de-francais?_cb=1777517132499 200 in 460ms
  ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ GET /cours-de-francais?_cb=1777518827200 200 in 45ms
+ GET /cours-de-francais?_cb=1777518835379 200 in 40ms
