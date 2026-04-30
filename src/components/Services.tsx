@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function Services() {
@@ -32,49 +33,69 @@ export default function Services() {
 
         {/* Services Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {t.services.items.map((service, i) => (
-            <div
-              key={service.title}
-              className="group relative bg-white rounded-2xl p-7 border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 overflow-hidden cursor-pointer"
-            >
-              {/* Hover background fill */}
-              <div
-                className="absolute inset-0 opacity-0 group-hover:opacity-[0.04] transition-opacity duration-300 rounded-2xl"
-                style={{ backgroundColor: service.color }}
-              />
+          {t.services.items.map((service, i) => {
+            const CardInner = (
+              <>
+                {/* Hover background fill */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-[0.04] transition-opacity duration-300 rounded-2xl" style={{ backgroundColor: service.color }} />
 
-              {/* Top accent line */}
-              <div
-                className="absolute top-0 left-0 right-0 h-1 rounded-t-2xl transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"
-                style={{ backgroundColor: service.color }}
-              />
+                {/* Top accent line */}
+                <div className="absolute top-0 left-0 right-0 h-1 rounded-t-2xl transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" style={{ backgroundColor: service.color }} />
 
-              {/* Number badge */}
-              <span
-                className="absolute top-5 right-5 text-xs font-bold opacity-15 group-hover:opacity-30 transition-opacity"
-                style={{ color: service.color }}
+                {/* Number badge */}
+                <span className="absolute top-5 right-5 text-xs font-bold opacity-15 group-hover:opacity-30 transition-opacity" style={{ color: service.color }}>
+                  0{i + 1}
+                </span>
+
+                {/* Icon */}
+                <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl mb-6 transition-transform duration-300 group-hover:scale-110" style={{ backgroundColor: `${service.color}15` }}>
+                  {service.icon}
+                </div>
+
+                {/* Content */}
+                <h3 className="font-bold text-lg text-[#1a1a2e] mb-3 leading-snug">{service.title}</h3>
+                <p className="text-gray-500 text-sm leading-relaxed">{service.description}</p>
+
+                {/* Bottom CTA */}
+                <div className="mt-6 flex items-center gap-1.5 text-xs font-semibold opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-1 group-hover:translate-y-0" style={{ color: service.color }}>
+                  {service.link ? (
+                    <span className="flex items-center gap-1">
+                      {service.cta}
+                      <svg className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" /></svg>
+                    </span>
+                  ) : (
+                    <span>{t.services.cta}</span>
+                  )}
+                </div>
+
+                {/* "Online" badge for linked services */}
+                {service.link && (
+                  <div className="absolute top-5 left-5">
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full border" style={{ color: service.color, borderColor: `${service.color}40`, background: `${service.color}10` }}>
+                      EN LIGNE
+                    </span>
+                  </div>
+                )}
+              </>
+            );
+
+            return service.link ? (
+              <Link
+                key={service.title}
+                href={service.link}
+                className="group relative bg-white rounded-2xl p-7 border-2 border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 overflow-hidden cursor-pointer block"
+                style={{ borderColor: undefined }}
+                onMouseEnter={e => (e.currentTarget.style.borderColor = `${service.color}60`)}
+                onMouseLeave={e => (e.currentTarget.style.borderColor = "")}
               >
-                0{i + 1}
-              </span>
-
-              {/* Icon */}
-              <div
-                className="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl mb-6 transition-transform duration-300 group-hover:scale-110"
-                style={{ backgroundColor: `${service.color}15` }}
-              >
-                {service.icon}
+                {CardInner}
+              </Link>
+            ) : (
+              <div key={service.title} className="group relative bg-white rounded-2xl p-7 border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 overflow-hidden cursor-pointer">
+                {CardInner}
               </div>
-
-              {/* Content */}
-              <h3 className="font-bold text-lg text-[#1a1a2e] mb-3 leading-snug">{service.title}</h3>
-              <p className="text-gray-500 text-sm leading-relaxed">{service.description}</p>
-
-              {/* Bottom CTA link */}
-              <div className="mt-6 flex items-center gap-1.5 text-xs font-semibold opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-1 group-hover:translate-y-0" style={{ color: service.color }}>
-                <span>{t.services.cta}</span>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Stats bar */}

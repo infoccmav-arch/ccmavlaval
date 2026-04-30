@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Hero() {
   return (
     <section
@@ -54,12 +56,12 @@ export default function Hero() {
           >
             Nos services
           </a>
-          <a
-            href="#evenements"
-            className="px-8 py-3.5 rounded-full border-2 border-white/40 text-white font-semibold text-base backdrop-blur-sm hover:bg-white/10 transition-all duration-200 hover:-translate-y-0.5"
+          <Link
+            href="/cours-de-francais"
+            className="flex items-center gap-2 px-8 py-3.5 rounded-full bg-white/15 border-2 border-white/60 text-white font-semibold text-base backdrop-blur-sm hover:bg-white/25 transition-all duration-200 hover:-translate-y-0.5"
           >
-            Voir les événements
-          </a>
+            🇫🇷 Cours de français en ligne
+          </Link>
         </div>
 
         {/* Stats row */}
