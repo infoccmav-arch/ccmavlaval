@@ -44,3 +44,21 @@ Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allow
  GET /?_cb=1777519436416 200 in 135ms
  GET / 200 in 280ms
  GET /?_cb=1777519588282 200 in 131ms
+ ✓ Compiled in 151ms (279 modules)
+ GET /?_cb=1777519588282 200 in 25ms
+ ✓ Compiled in 150ms (279 modules)
+ ✓ Compiled in 119ms (723 modules)
+ GET /?_cb=1777519588282 200 in 92ms
+ GET /?_cb=1777519588282 200 in 23ms
+ GET /?_cb=1777519588282 200 in 27ms
+ ✓ Compiled in 301ms (737 modules)
+ GET /?_cb=1777519588282 200 in 105ms
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ GET /?_cb=1777519588282 200 in 194ms
+ ✓ Compiled in 162ms (737 modules)
+ GET /?_cb=1777519588282 200 in 56ms
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ GET /?_cb=1777519588282 200 in 174ms
+ ✓ Compiled /aide-emploi in 246ms (730 modules)
+ GET /aide-emploi 200 in 299ms
+ GET /aide-emploi?_cb=1777519588282 200 in 77ms
