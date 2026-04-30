@@ -62,3 +62,4 @@ Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allow
  ✓ Compiled /aide-emploi in 246ms (730 modules)
  GET /aide-emploi 200 in 299ms
  GET /aide-emploi?_cb=1777519588282 200 in 77ms
+ GET /aide-emploi?_cb=1777520022390 200 in 47ms
